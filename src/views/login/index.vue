@@ -1,12 +1,12 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">vue-admin-template</h3>
+      <h3 class="title">The home of industry</h3>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username" />
+        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="请输入用户名" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
@@ -17,7 +17,7 @@
           v-model="loginForm.password"
           name="password"
           auto-complete="on"
-          placeholder="password"
+          placeholder="请输入密码"
           @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="pwdType === 'password' ? 'eye' : 'eye-open'" />
@@ -25,13 +25,13 @@
       </el-form-item>
       <el-form-item>
         <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
-          Sign in
+          登陆
         </el-button>
       </el-form-item>
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: admin</span>
-      </div>
+      </div> -->
     </el-form>
   </div>
 </template>
@@ -58,8 +58,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: 'admin'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -87,6 +87,7 @@ export default {
       }
     },
     handleLogin() {
+      console.log(this.loginForm.username + this.loginForm.password);
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
@@ -109,8 +110,9 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 $bg:#2d3a4b;
 $light_gray:#eee;
-
+$light_banana: rgb(248, 225, 225);
 /* reset element-ui css */
+
 .login-container {
   .el-input {
     display: inline-block;
@@ -122,7 +124,7 @@ $light_gray:#eee;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: $light_gray,$light_banana;
       height: 47px;
       &:-webkit-autofill {
         -webkit-box-shadow: 0 0 0px 1000px $bg inset !important;
@@ -144,6 +146,8 @@ $light_gray:#eee;
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
+$light_banana:rgb(250, 250, 250);
+
 .login-container {
   position: fixed;
   height: 100%;
@@ -178,10 +182,11 @@ $light_gray:#eee;
   .title {
     font-size: 26px;
     font-weight: 400;
-    color: $light_gray;
+    color: $light_banana;
     margin: 0px auto 40px auto;
     text-align: center;
     font-weight: bold;
+
   }
   .show-pwd {
     position: absolute;
