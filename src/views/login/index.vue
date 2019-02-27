@@ -6,7 +6,7 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="请输入用户名" />
+        <el-input v-model="loginForm.username"  name="username" type="text" auto-complete="on" placeholder="请输入用户名" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
@@ -37,21 +37,21 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+//import { isvalidUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+      if (value.length<=3) {
+        callback(new Error('用户名不能小于3位！'))
       } else {
         callback()
       }
     }
     const validatePass = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+        callback(new Error('密码不能小于5位！'))
       } else {
         callback()
       }
@@ -98,7 +98,7 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
+          console.log('数据不合法，导致校验未通过！！')
           return false
         }
       })
