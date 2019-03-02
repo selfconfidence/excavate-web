@@ -38,7 +38,7 @@
 
 <script>
 //import { isvalidUsername } from '@/utils/validate'
-
+import {login,getInfo} from '@/api/login'
 export default {
   name: 'Login',
   data() {
@@ -87,21 +87,21 @@ export default {
       }
     },
     handleLogin() {
-      console.log(this.loginForm.username + this.loginForm.password);
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
             this.$router.push({ path: this.redirect || '/' })
-          }).catch(() => {
+          }).catch((Error) => {
             this.loading = false
           })
+                
         } else {
           console.log('数据不合法，导致校验未通过！！')
           return false
         }
-      })
+      });
     }
   }
 }
