@@ -1,49 +1,19 @@
 <template>
-  <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row>
-      <el-table-column align="center" label="ID" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Title">
-        <template slot-scope="scope">
-          {{ scope.row.title }}
-        </template>
-      </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.pageviews }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{ scope.row.status }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time"/>
-          <span>{{ scope.row.display_time }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+<div>
+  <el-rate
+  v-model="value"
+  disabled
+  show-score
+  text-color="#ff9900"
+  score-template="{value}">
+</el-rate>
+
+<el-input v-model="value" placeholder="请为自己评分~"></el-input>
+</div>
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import apiTable from '@/api/table'
 
 export default {
   filters: {
@@ -59,17 +29,18 @@ export default {
   data() {
     return {
       list: null,
-      listLoading: true
+      listLoading: true,
+      value: '请为自己评分'
     }
   },
   created() {
-    this.fetchData()
+    //this.fetchData()
   },
   methods: {
     fetchData() {
       this.listLoading = true
-      getList(this.listQuery).then(response => {
-        this.list = response.data.items
+      apiTable.getList(null).then(response => {
+        this.list = response.data
         this.listLoading = false
       })
     }
