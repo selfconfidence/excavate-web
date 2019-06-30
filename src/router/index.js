@@ -72,7 +72,28 @@ export const constantRouterMap = [
     ]
   },
 
-  
+  {
+    path: '/recruitmanager',
+    component: Layout,
+    //redirect: '/example/table',
+    name: 'RecruitManager',
+    meta: { title: '招聘管理', icon: 'example' },
+    children: [
+      {
+        path: 'recruit',
+        name: 'Recruit',
+        component: () => import('@/views/table/recruit'),
+        meta: { title: '招聘信息', icon: 'table' }
+      },
+      {
+        path: 'enterprise',
+        name: 'Enterprise',
+        component: () => import('@/views/table/enterprise'),
+        meta: { title: '企业管理', icon: 'tree' }
+      }
+    ]
+  },
+
 
   { path: '*', redirect: '/404', hidden: true }
 ]
